@@ -5,16 +5,31 @@
     <title>Title</title>
 </head>
   <body>
+
+  <% if user_signed_in? %>
+    <span>Здравствуйте, <%= current_user.email %></span>
+    <%= link_to 'Выйти', destroy_user_session_path, :method => :delete %>
+  <% else %>
+    <%= link_to 'Войти', new_user_session_path %> или <%= link_to 'Зарегистрироваться', new_user_registration_path %>
+  <% end %>
+
+  <p class="notice"><%= notice %></p>
+  <p class="alert"><%= alert %></p>
+
     <h1>Listing articles</h1>
       <%= link_to 'New article', new_article_path %>
       <table>
          <tr>
+           <th>User email</th>
+           <th>User IP</th>
            <th>Title</th>
            <th>Text</th>
            <th></th>
          </tr>
         <% @articles.each do |article| %>
           <tr>
+            <td><%= article.user.email %></td>
+            <td><%= article.creator_ip_address %></td>
             <td><%= article.title %></td>
             <td><%= article.text %></td>
             <td><%= link_to 'Show', article_path(article) %></td>

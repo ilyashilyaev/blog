@@ -1,10 +1,5 @@
 class ArticlesController < ApplicationController
 
-
-  def index
-    @articles = Article.all
-  end
-
   def index
     @articles = Article.all
   end
@@ -22,7 +17,9 @@ class ArticlesController < ApplicationController
   end
 
   def create
-    @article = Article.new(article_params)
+    @article = Article.new(article_params.merge!({ user_id: current_user.id, creator_ip_address: request.remote_ip }))
+    # @article.user = current_user
+    # @article.creator_ip_address = request.remote_ip
 
     if @article.save
       redirect_to @article
@@ -51,8 +48,8 @@ class ArticlesController < ApplicationController
 
   private
 
-    def article_params
+  def article_params
     params.require(:article).permit(:title, :text)
-    end
+  end
 
 end
