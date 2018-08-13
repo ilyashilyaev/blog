@@ -14,7 +14,6 @@ gem 'sass-rails', '~> 5.0'                                  # Use SCSS for style
 
 gem 'uglifier', '>= 1.3.0'                                  # Use Uglifier as compressor for JavaScript assets
 
-
 gem 'coffee-rails', '~> 4.2'                                 # Use CoffeeScript for .coffee assets and views
 
 gem 'turbolinks', '~> 5'                                    # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
@@ -29,6 +28,7 @@ gem 'acts_as_votable'                                         #Acts As Votable (
 
 gem 'bootsnap', '>= 1.1.0', require: false                   # Reduces boot times through caching; required in config/boot.rb
 
+gem 'bootstrap'                                             #style gem
 
 group :development, :test do
 
