@@ -24,7 +24,7 @@
            <th>User IP</th>
            <th>Title</th>
            <th>Text</th>
-           <th></th>
+           <th>Rating</th>
          </tr>
         <% @articles.each do |article| %>
           <tr>
@@ -32,8 +32,10 @@
             <td><%= article.creator_ip_address %></td>
             <td><%= article.title %></td>
             <td><%= article.text %></td>
+            <td><%= article.rating %></td>
             <td><%= link_to 'Show', article_path(article) %></td>
             <td><%= link_to 'Edit', edit_article_path(article) %></td>
+            <td><%= link_to 'Rating', new_article_rating_path(article) %></td>
             <td><%= link_to 'Destroy', article_path(article),
                             method: 'delete',
                             data: { confirm: 'Are you sure?' } %></td>
