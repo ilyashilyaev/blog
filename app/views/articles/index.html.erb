@@ -15,16 +15,29 @@
 
   <p class="notice"><%= notice %></p>
   <p class="alert"><%= alert %></p>
-
+  <div class="jumbotron text-center">
     <h1>Listing articles</h1>
-      <%= link_to 'New article', new_article_path %>
-      <table>
+  </div>
+
+      <%= link_to 'New article', new_article_path %><br>
+
+        <%= form_tag(articles_path, method: "get") do %>
+          <%= label_tag(:q, "Search article by title:") %>
+          <%= text_field_tag(:q, params[:q]) %>
+          <%= submit_tag("Search") %>
+        <% end %>
+
+      <table class="table">
          <tr>
            <th>User email</th>
            <th>User IP</th>
            <th>Title</th>
            <th>Text</th>
            <th>Rating</th>
+           <th>Show Action</th>
+           <th>Edit Action</th>
+           <th>Rating Action</th>
+           <th>Delete</th>
          </tr>
         <% @articles.each do |article| %>
           <tr>
@@ -43,5 +56,31 @@
         <% end %>
 
       </table>
+
+      <h1>
+        List of IP addresses from which several different authors have posted
+      </h1>
+
+      <table class="striped table-bordered">
+        <tr>
+          <th>IP</th>
+          <th>User email</th>
+        </tr>
+          <% @list_ip.each do |ip, articles| %>
+          <tr>
+            <td>
+              <%= ip %>
+            </td>
+            <td>
+              <% articles.each do |article|   %>
+                <p>
+                  <%= article.user.email %>
+                </p>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </table>
+
   </body>
 </html>
