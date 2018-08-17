@@ -1,12 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
 
-    <%= form_with(model: [ @article, @article.comments.build ], local: true) do |form| %>
+
+    <%= form_with(model: [ @article, @article.comments.build ],data:{remote: true }, local: true, id: 'comments-form') do |form| %>
 
       <p>
         <%= form.label :body %><br>
@@ -16,5 +10,5 @@
        <%= form.submit %>
      </p>
     <% end %>
-</body>
-</html>
+
+

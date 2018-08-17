@@ -10,6 +10,7 @@ Rails.application.routes.draw do
 
   end
   root 'welcome#index'
+  post 'check_nickname', to: 'welcome#check_nickname'
 
 end
 

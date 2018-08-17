@@ -15,3 +15,14 @@
  */
  @import "bootstrap";
  input[type=submit] {@extend .btn; @extend .btn-success}
+
+.error-massage{
+  color: red;
+}
+.border-error{
+  border: 1px solid red !important;
+}
+
+.success-massage{
+  color: green;
+}

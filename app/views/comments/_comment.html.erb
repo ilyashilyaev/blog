@@ -1,14 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-  <body>
-    <p>
-      <strong>Commenter:</strong>
-      <%= comment.user.email %>
-    </p>
+<div id="comment-<%=comment.id %>">
+  <p>
+    <strong>Commenter:</strong>
+    <%= comment.user.email %>
+  </p>
   <p>
     <strong>Comment:</strong>
     <%= comment.body %>
@@ -16,7 +10,7 @@
   <p>
     <%= link_to 'Destroy Comment', [comment.article, comment],
                 method: :delete,
-                data: { config: 'Are you sure?' } %>
+                data: { config: 'Are you sure?', remote: true } %>
   </p>
-  </body>
-</html>
+  <hr>
+</div>
