@@ -22,13 +22,13 @@ gem 'jbuilder', '~> 2.5'                                    # Build JSON APIs wi
 
 gem 'devise'                                                #Use authentication solution for Rails based on Warden. It
 
-#gem 'ratyrate'                                              #A Ruby Gem that wraps the functionality of jQuery Raty library, and provides optional IMDB style rating
-
-gem 'acts_as_votable'                                         #Acts As Votable (aka Acts As Likeable)
-
 gem 'bootsnap', '>= 1.1.0', require: false                   # Reduces boot times through caching; required in config/boot.rb
 
-gem 'bootstrap'                                             #style gem
+#gem 'bootstrap'                                             #style gem
+
+gem 'bootstrap-sass'                                         #style gem
+
+gem 'jquery-rails'                                           #This gem provides jQuery and the jQuery-ujs driver for your Rails 4+ application.
 
 group :development, :test do
 
@@ -40,8 +40,11 @@ group :development do
   gem 'web-console', '>= 3.3.0'                                 # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
   gem 'listen', '>= 3.0.5', '< 3.2'
 
-  gem 'spring'                                                # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+  gem 'spring'                                                   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring-watcher-listen', '~> 2.0.0'
+
+  gem 'awesome_print'                                            # Pretty print your Ruby objects with style -- in full color and with proper indentation.
+
 end
 
 group :test do

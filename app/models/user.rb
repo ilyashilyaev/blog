@@ -7,4 +7,5 @@ class User < ApplicationRecord
   has_many :articles, dependent: :destroy
   has_many :comments, dependent: :destroy
 
+  validates :nickname, presence: true
 end

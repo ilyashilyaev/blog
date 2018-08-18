@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_10_141442) do
+ActiveRecord::Schema.define(version: 2018_08_15_080719) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,22 +18,12 @@ ActiveRecord::Schema.define(version: 2018_08_10_141442) do
   create_table "articles", id: :serial, force: :cascade do |t|
     t.string "title", null: false
     t.string "creator_ip_address", null: false
-    t.text "text"
+    t.integer "rating", default: 0, null: false
+    t.text "text", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id", null: false
     t.index ["user_id"], name: "index_articles_on_user_id"
-  end
-
-  create_table "average_caches", force: :cascade do |t|
-    t.float "avg", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "rater_id", null: false
-    t.string "rateable_type", null: false
-    t.bigint "rateable_id", null: false
-    t.index ["rateable_type", "rateable_id"], name: "index_average_caches_on_rateable_type_and_rateable_id"
-    t.index ["rater_id"], name: "index_average_caches_on_rater_id"
   end
 
   create_table "comments", force: :cascade do |t|
@@ -46,41 +36,21 @@ ActiveRecord::Schema.define(version: 2018_08_10_141442) do
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
-  create_table "overall_averages", force: :cascade do |t|
-    t.float "overall_avg", null: false
+  create_table "ratings", force: :cascade do |t|
+    t.string "ratingable_type", null: false
+    t.bigint "ratingable_id", null: false
+    t.bigint "user_id", null: false
+    t.integer "mark", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "rateable_type", null: false
-    t.bigint "rateable_id", null: false
-    t.index ["rateable_type", "rateable_id"], name: "index_overall_averages_on_rateable_type_and_rateable_id"
-  end
-
-  create_table "rates", force: :cascade do |t|
-    t.float "stars", null: false
-    t.string "dimension"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "rater_id", null: false
-    t.string "rateable_type", null: false
-    t.bigint "rateable_id", null: false
-    t.index ["rateable_type", "rateable_id"], name: "index_rates_on_rateable_type_and_rateable_id"
-    t.index ["rater_id"], name: "index_rates_on_rater_id"
-  end
-
-  create_table "rating_caches", force: :cascade do |t|
-    t.float "avg", null: false
-    t.integer "qty", null: false
-    t.string "dimension"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "cacheable_type"
-    t.bigint "cacheable_id"
-    t.index ["cacheable_type", "cacheable_id"], name: "index_rating_caches_on_cacheable_type_and_cacheable_id"
+    t.index ["ratingable_type", "ratingable_id"], name: "index_ratings_on_ratingable_type_and_ratingable_id"
+    t.index ["user_id"], name: "index_ratings_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
+    t.string "nickname", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -92,6 +62,7 @@ ActiveRecord::Schema.define(version: 2018_08_10_141442) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["nickname"], name: "index_users_on_nickname", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
@@ -112,4 +83,5 @@ ActiveRecord::Schema.define(version: 2018_08_10_141442) do
   add_foreign_key "articles", "users"
   add_foreign_key "comments", "articles"
   add_foreign_key "comments", "users"
+  add_foreign_key "ratings", "users"
 end

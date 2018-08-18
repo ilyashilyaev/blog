@@ -1,7 +1,16 @@
 class ArticlesController < ApplicationController
 
   def index
-    @articles = Article.all
+    @articles = Article
+
+    if params[:q].present?
+      @articles = @articles.where("title ILIKE ?", "%#{params[:q]}%")
+    end
+
+    @articles = @articles.order(rating: :desc)                                                  #создание сортировки по рейтингу в обратную сторону
+    @articles = @articles.all
+
+    @list_ip = Article.all.group_by(&:creator_ip_address)
   end
 
   def show
@@ -42,9 +51,11 @@ class ArticlesController < ApplicationController
     def destroy
       @article = Article.find(params[:id])
       @article.destroy
-
-      redirect_to articles_path
+      respond_with do |format|
+        format.json { render json: @article }
+      end
     end
+
 
   private
 
