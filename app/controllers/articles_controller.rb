@@ -1,20 +1,31 @@
 class ArticlesController < ApplicationController
 
+  before_action :set_resource, only: %i[show edit update destroy]
+
   def index
-    @articles = Article
+    @articles = policy_scope(Article)
 
     if params[:q].present?
       @articles = @articles.where("title ILIKE ?", "%#{params[:q]}%")
     end
 
-    @articles = @articles.order(rating: :desc)                                                  #создание сортировки по рейтингу в обратную сторону
-    @articles = @articles.all
+    @articles = @articles.order(id: :desc)                                                  #создание сортировки по рейтингу в обратную сторону
+    @articles = @articles.page(params[:page])
 
-    @list_ip = Article.all.group_by(&:creator_ip_address)
+    @list_ip = policy_scope(Article).group_by(&:creator_ip_address)
+
+    puts '======='
+    puts '======='
+    puts @list_ip.inspect
+    puts '======='
+    puts '======='
+    puts '======='
+
   end
 
   def show
     @article = Article.find(params[:id])
+    authorize @article
   end
 
   def new
@@ -22,14 +33,13 @@ class ArticlesController < ApplicationController
   end
 
   def edit
-    @article = Article.find(params[:id])
+    authorize @article
   end
 
   def create
-    @article = Article.new(article_params.merge!({ user_id: current_user.id, creator_ip_address: request.remote_ip }))
-    # @article.user = current_user
-    # @article.creator_ip_address = request.remote_ip
-
+    @article = Article.new(article_params)
+    @article.user = current_user
+    @article.creator_ip_address = request.remote_ip
     if @article.save
       redirect_to @article
     else
@@ -37,30 +47,34 @@ class ArticlesController < ApplicationController
     end
   end
 
-    def update
-      @article = Article.find(params[:id])
+  def update
+    authorize @article
 
-      if @article.update(article_params)
-        redirect_to @article
-      else
-        render 'edit'
-      end
+    if @article.update(article_params)
+      redirect_to @article
+    else
+      render 'edit'
     end
+  end
 
 
-    def destroy
-      @article = Article.find(params[:id])
-      @article.destroy
-      respond_with do |format|
-        format.json { render json: @article }
-      end
+  def destroy
+    authorize @article
+    @article.destroy
+    respond_with do |format|
+      format.json { render json: @article }
     end
+  end
 
 
   private
 
   def article_params
     params.require(:article).permit(:title, :text)
+  end
+
+  def set_resource
+    @article = Article.find(params[:id])
   end
 
 end
