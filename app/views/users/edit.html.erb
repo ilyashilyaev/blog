@@ -1,0 +1,22 @@
+
+<%= form_with scope: @user, url: user_path(@user), method: 'GET' do |f|%>
+
+
+
+      <%= f.label :nickname %>
+      <%= f.text_field :nickname, class: 'form-control' %>
+
+      <%= f.label :first_name %>
+      <%= f.text_field :first_name, class: 'form-control' %>
+
+      <%= f.label :last_name %>
+      <%= f.text_field :last_name, class: 'form-control' %>
+
+      <%#= f.label :avatar %>
+      <%#= f.password_field :avatar, class: 'form-control' %>
+
+
+      <%= f.submit "Save changes", class: "btn btn-primary" %>
+    <% end %>
+
+

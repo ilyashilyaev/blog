@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 2018_08_15_080719) do
     t.string "creator_ip_address", null: false
     t.integer "rating", default: 0, null: false
     t.text "text", null: false
+    t.string "attachment"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_articles_on_user_id"

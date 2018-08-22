@@ -10,6 +10,8 @@ Rails.application.routes.draw do
     resources :ratings, only: [:new, :create]                           # установили возможные экшены
 
   end
+  resources :users
+
   root 'welcome#index'
   post 'check_nickname', to: 'welcome#check_nickname'
 

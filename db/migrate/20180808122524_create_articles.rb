@@ -6,6 +6,7 @@ class CreateArticles < ActiveRecord::Migration[5.0]
       t.string  :creator_ip_address, null: false
       t.integer :rating, null: false, default: 0
       t.text    :text, null: false
+      t.string  :attachment
 
       t.timestamps
     end

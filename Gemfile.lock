@@ -42,6 +42,7 @@ GEM
       i18n (>= 0.7, < 2)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
+    acts_as_votable (0.11.1)
     addressable (2.5.2)
       public_suffix (>= 2.0.2, < 4.0)
     archive-zip (0.11.0)
@@ -66,6 +67,10 @@ GEM
       rack (>= 1.6.0)
       rack-test (>= 0.6.3)
       xpath (~> 3.1)
+    carrierwave (1.2.3)
+      activemodel (>= 4.0.0)
+      activesupport (>= 4.0.0)
+      mime-types (>= 1.16)
     childprocess (0.9.0)
       ffi (~> 1.0, >= 1.0.11)
     chromedriver-helper (1.2.0)
@@ -89,6 +94,9 @@ GEM
     erubi (1.7.1)
     execjs (2.7.0)
     ffi (1.9.25)
+    file_validators (2.3.0)
+      activemodel (>= 3.2)
+      mime-types (>= 1.0)
     font-awesome-rails (4.7.0.4)
       railties (>= 3.2, < 6.0)
     globalid (0.4.1)
@@ -132,7 +140,11 @@ GEM
     marcel (0.3.2)
       mimemagic (~> 0.3.2)
     method_source (0.9.0)
+    mime-types (3.2.2)
+      mime-types-data (~> 3.2015)
+    mime-types-data (3.2018.0812)
     mimemagic (0.3.2)
+    mini_magick (4.8.0)
     mini_mime (1.0.0)
     mini_portile2 (2.3.0)
     minitest (5.11.3)
@@ -255,18 +267,22 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  acts_as_votable
   awesome_print
   bootsnap (>= 1.1.0)
   bootstrap-sass
   byebug
   capybara (>= 2.15, < 4.0)
+  carrierwave
   chromedriver-helper
   coffee-rails (~> 4.2)
   devise
+  file_validators
   jbuilder (~> 2.5)
   jquery-rails
   kaminari
   listen (>= 3.0.5, < 3.2)
+  mini_magick
   pg (>= 0.18, < 2.0)
   puma (~> 3.11)
   pundit
