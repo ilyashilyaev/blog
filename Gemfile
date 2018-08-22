@@ -30,6 +30,20 @@ gem 'bootstrap-sass'                                         #style gem
 
 gem 'jquery-rails'                                           #This gem provides jQuery and the jQuery-ujs driver for your Rails 4+ application.
 
+gem 'rails_admin'                                            #RailsAdmin is a Rails engine that provides an easy-to-use interface for managing your data.
+
+gem 'kaminari'                                               #A Scope & Engine based, clean, powerful, customizable and sophisticated paginator for modern web app frameworks and ORMs
+
+gem "pundit"                                                #Pundit provides a set of helpers which guide you in leveraging regular Ruby classes and object oriented design patterns to build a simple, robust and scaleable authorization system.
+
+gem 'acts_as_votable'                                        #Acts As Votable is a Ruby Gem specifically written for Rails/ActiveRecord models
+
+gem 'carrierwave'                                           #This gem provides a simple and extremely flexible way to upload files from Ruby applications. It works well with Rack based web applications, such as Ruby on Rails.
+
+gem "mini_magick"                                           #A ruby wrapper for ImageMagick or GraphicsMagick command line.
+
+gem 'file_validators'                                     #File Validators gem adds file size and content type validations to ActiveModel. Any module that uses ActiveModel, for example ActiveRecord, can use these file validators.
+
 group :development, :test do
 
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]          # Call 'byebug' anywhere in the code to stop execution and get a debugger console

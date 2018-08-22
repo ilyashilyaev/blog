@@ -6,6 +6,9 @@ class Article < ApplicationRecord
 
   has_many :ratings, as: :ratingable, dependent: :destroy         #прописываем отношение, полигамность, удаление рейтинга после удаления поста
 
+
+  mount_uploader :attachment, AttachmentUploader
+
   validates :title,
             :creator_ip_address,
             :text,
