@@ -6,9 +6,11 @@ class Article < ApplicationRecord
 
   has_many :ratings, as: :ratingable, dependent: :destroy         #прописываем отношение, полигамность, удаление рейтинга после удаления поста
 
+  has_many :favorites, dependent: :destroy
 
   mount_uploader :attachment, AttachmentUploader
 
+  validates :attachment, file_size: { less_than: 2.megabytes }
   validates :title,
             :creator_ip_address,
             :text,
@@ -17,5 +19,9 @@ class Article < ApplicationRecord
   validates :title,
             length: { minimum: 5 }
 
+
+  def has_favorite?(user)
+    favorites.find_by(user: user).present?
+  end
 
 end

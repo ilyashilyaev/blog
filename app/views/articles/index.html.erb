@@ -1,15 +1,19 @@
 <% if user_signed_in? %>
-  <span>Здравствуйте, <%= current_user.email %></span>
-  <%#= link_to 'Профиль', %>
-  <%= link_to 'Выйти', destroy_user_session_path, :method => :delete %>
+  <span><% if current_user.avatar.present? %>
+      <%= image_tag(current_user.avatar.thumb.url) %>
+      <%end %></span><br>
+  <span>Здравствуйте, <%= current_user.email %></span><br>
+  <span><%= current_user.nickname %></span>
+
+  <%= link_to 'Edit', edit_user_path(current_user) %>
+  <%= link_to 'Выйти', destroy_user_session_path, method: :delete %>
 <% else %>
   <%= link_to 'Войти', new_user_session_path %> или <%= link_to 'Зарегистрироваться', new_user_registration_path %>
 <% end %>
-
 <p class="notice"><%= notice %></p>
 <p class="alert"><%= alert %></p>
 <div class="jumbotron text-center">
-<h1>Listing articles</h1>
+  <h1>Listing articles</h1>
 </div>
 
 <%= link_to 'New article', new_article_path %><br>
@@ -31,6 +35,7 @@
      <th>Show Action</th>
      <th>Edit Action</th>
      <th>Rating Action</th>
+     <th>Add Favorites</th>
      <th>Delete</th>
    </tr>
   <% @articles.each do |article| %>
@@ -41,6 +46,7 @@
       <td><%= article.title %></td>
       <td><%= article.text %></td>
       <td><%= article.rating %></td>
+
       <td><%= link_to 'Show', article_path(article), class: "btn btn-success" %></td>
 
       <td>
@@ -50,6 +56,14 @@
       </td>
 
       <td><%= link_to 'Rating', new_article_rating_path(article), class: "btn btn-info" %></td>
+
+      <td>
+        <% if article.has_favorite?(current_user)%>
+        <button class="delete_favorites">false</button>
+          <%else %>
+        <button class="btn btn-default favorites" data-article-id="true">true</button>
+          <%end %>
+      </td>
 
       <td>
         <% if policy(article).destroy? %>

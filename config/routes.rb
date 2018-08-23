@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   resources   :articles do
     resources :comments
     resources :ratings, only: [:new, :create]                           # установили возможные экшены
+    post 'add_to_favorites', on: :member
+    put 'delete_to_favorites',on: :member
 
   end
   resources :users

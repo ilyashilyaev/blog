@@ -42,7 +42,7 @@ gem 'carrierwave'                                           #This gem provides a
 
 gem "mini_magick"                                           #A ruby wrapper for ImageMagick or GraphicsMagick command line.
 
-gem 'file_validators'                                     #File Validators gem adds file size and content type validations to ActiveModel. Any module that uses ActiveModel, for example ActiveRecord, can use these file validators.
+gem 'file_validators'                                       #File Validators gem adds file size and content type validations to ActiveModel. Any module that uses ActiveModel, for example ActiveRecord, can use these file validators.
 
 group :development, :test do
 

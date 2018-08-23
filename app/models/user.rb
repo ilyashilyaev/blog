@@ -6,6 +6,11 @@ class User < ApplicationRecord
 
   has_many :articles, dependent: :destroy
   has_many :comments, dependent: :destroy
+  has_many :favorites, dependent: :destroy
+
+  mount_uploader :avatar, AttachmentUploader
+
+  validates :avatar, file_size: { less_than: 2.megabytes }
 
   validates :nickname, presence: true, uniqueness: true
 

@@ -8,15 +8,15 @@
 
 
 User.create(
-            {
-             email:                  "admin@mail.ru",
-             nickname:               "Admin",
-             password:               "123456",
-             password_confirmation:  "123456",
-             first_name:             "Admin",
-             last_name:              "Admins",
-             is_admin:                true
-            }
+    {
+    email:                  "admin@mail.ru",
+    nickname:               "Admin",
+    password:               "123456",
+    password_confirmation:  "123456",
+    first_name:             "Admin",
+    last_name:              "Admins",
+    is_admin:                true
+    }
 
 )
 20.times do |i|
@@ -34,7 +34,9 @@ end
   Article.create({
      title:                                       "First Article#{i}",
      creator_ip_address:                          "127.0.0.#{rand(0..9)}",
-     text:                                        "RailsAdmin Rollincode Theme. Gem Version. A modern override of default bootstrap 3 rails_admin theme. It provides news colors, adjustments and a brand",
+     text:                                        "RailsAdmin Rollincode Theme. Gem Version.
+                                                   A modern override of default bootstrap 3 rails_admin theme.
+                                                   It provides news colors, adjustments and a brand",
      user:                                         User.order("RANDOM()").last
   })
 end
