@@ -24,8 +24,6 @@ gem 'devise'                                                #Use authentication 
 
 gem 'bootsnap', '>= 1.1.0', require: false                   # Reduces boot times through caching; required in config/boot.rb
 
-#gem 'bootstrap'                                             #style gem
-
 gem 'bootstrap-sass'                                         #style gem
 
 gem 'jquery-rails'                                           #This gem provides jQuery and the jQuery-ujs driver for your Rails 4+ application.

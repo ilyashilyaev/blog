@@ -1,0 +1,27 @@
+<div data-controller="Favorites">
+<table class="table">
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>User</th>
+    <th>Title</th>
+    <th>Text</th>
+    <th>Comments count</th>
+    <th>delete from favorites</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @my_favorite_articles.each do |article| %>
+    <tr data-article-id="<%=article.id%>">
+      <td><%= link_to article.id, article_path(article.id) %></td>
+      <td><%= article.user.email %></td>
+      <td><%= article.title %></td>
+      <td><%= article.text %></td>
+      <td><%= article.count_of_comments %></td>
+      <td><%= link_to 'Delete', 'javascript:void(0)', class: "btn btn-danger" %></td>
+    </tr>
+    </tbody>
+  <%end %>
+  </table>
+<%= link_to 'Back', articles_path %>
+</div>

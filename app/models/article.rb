@@ -19,7 +19,7 @@ class Article < ApplicationRecord
   validates :title,
             length: { minimum: 5 }
 
-
+# создаем класс
   def has_favorite?(user)
     favorites.find_by(user: user).present?
   end

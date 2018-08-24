@@ -62,7 +62,6 @@ class ArticlesController < ApplicationController
   def add_to_favorites
     @article = Article.find(params[:id])
     @favorite = @article.favorites.new({user: current_user})
-    puts @favorite.inspect
     if @favorite.save
       respond_with do |format|
         format.json { render json: @article }
@@ -75,9 +74,6 @@ class ArticlesController < ApplicationController
 
   def delete_to_favorites
     @article = Article.find(params[:id])
-    puts '===================='
-    puts  @article.favorites.find_by(user: current_user).inspect
-    puts '===================='
     @favorite = @article.favorites.find_by(user: current_user)
     @favorite.destroy
     respond_with do |format|

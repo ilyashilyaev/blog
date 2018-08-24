@@ -7,6 +7,7 @@ class User < ApplicationRecord
   has_many :articles, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
+  has_many :my_favorite_articles, through: :favorites, source: :article, foreign_key: :article_id
 
   mount_uploader :avatar, AttachmentUploader
 

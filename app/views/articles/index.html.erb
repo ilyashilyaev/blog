@@ -1,101 +1,107 @@
-<% if user_signed_in? %>
-  <span><% if current_user.avatar.present? %>
-      <%= image_tag(current_user.avatar.thumb.url) %>
-      <%end %></span><br>
-  <span>Здравствуйте, <%= current_user.email %></span><br>
-  <span><%= current_user.nickname %></span>
+<div data-controller="Favorites">
+  <% if user_signed_in? %>
+    <span><% if current_user.avatar.present? %>
+        <%= image_tag(current_user.avatar.thumb.url) %>
+        <%end %></span><br>
+    <span>Здравствуйте, <%= current_user.email %></span><br>
+    <span><%= current_user.nickname %></span>
+    <%= link_to 'Show', user_path(current_user) %>
+    <%= link_to 'Edit', edit_user_path(current_user) %>
+    <%= link_to 'Выйти', destroy_user_session_path, method: :delete %>
+  <% else %>
+    <%= link_to 'Войти', new_user_session_path %> или <%= link_to 'Зарегистрироваться', new_user_registration_path %>
+  <% end %>
+  <p class="notice"><%= notice %></p>
+  <p class="alert"><%= alert %></p>
+  <div class="jumbotron text-center">
+    <h1>Listing articles</h1>
+  </div>
 
-  <%= link_to 'Edit', edit_user_path(current_user) %>
-  <%= link_to 'Выйти', destroy_user_session_path, method: :delete %>
-<% else %>
-  <%= link_to 'Войти', new_user_session_path %> или <%= link_to 'Зарегистрироваться', new_user_registration_path %>
-<% end %>
-<p class="notice"><%= notice %></p>
-<p class="alert"><%= alert %></p>
-<div class="jumbotron text-center">
-  <h1>Listing articles</h1>
-</div>
+  <%= link_to 'New article', new_article_path %><br>
+  <%= link_to 'My favorites', my_favorites_user_path(current_user)  %>
 
-<%= link_to 'New article', new_article_path %><br>
-
-<%= form_tag(articles_path, method: "get") do %>
-  <%= label_tag(:q, "Search article by title:") %>
-  <%= text_field_tag(:q, params[:q]) %>
-  <%= submit_tag("Search") %>
-<% end %>
-
-<table class="table" id="articles-table">
-   <tr>
-     <th>ID</th>
-     <th>User email</th>
-     <th>User IP</th>
-     <th>Title</th>
-     <th>Text</th>
-     <th>Rating</th>
-     <th>Show Action</th>
-     <th>Edit Action</th>
-     <th>Rating Action</th>
-     <th>Add Favorites</th>
-     <th>Delete</th>
-   </tr>
-  <% @articles.each do |article| %>
-    <tr data-article-id="<%=article.id%>">
-      <td><%= article.id %></td>
-      <td><%= article.user.email %></td>
-      <td><%= article.creator_ip_address %></td>
-      <td><%= article.title %></td>
-      <td><%= article.text %></td>
-      <td><%= article.rating %></td>
-
-      <td><%= link_to 'Show', article_path(article), class: "btn btn-success" %></td>
-
-      <td>
-        <% if policy(article).edit? %>
-          <%= link_to 'Edit', edit_article_path(article), class: "btn btn-primary" %>
-        <% end %>
-      </td>
-
-      <td><%= link_to 'Rating', new_article_rating_path(article), class: "btn btn-info" %></td>
-
-      <td>
-        <% if article.has_favorite?(current_user)%>
-        <button class="delete_favorites">false</button>
-          <%else %>
-        <button class="btn btn-default favorites" data-article-id="true">true</button>
-          <%end %>
-      </td>
-
-      <td>
-        <% if policy(article).destroy? %>
-          <%= link_to 'Delete', 'javascript:void(0)', class: "btn btn-danger" %>
-        <% end %>
-      </td>
-    </tr>
+  <%= form_tag(articles_path, method: "get") do %>
+    <%= label_tag(:q, "Search article by title:") %>
+    <%= text_field_tag(:q, params[:q]) %>
+    <%= submit_tag("Search") %>
   <% end %>
 
-</table>
-<%= paginate @articles %>
-<h1>
-  List of IP addresses from which several different authors have posted
-</h1>
+  <table class="table" id="articles-table">
+     <tr>
+       <th>ID</th>
+       <th>User email</th>
+       <th>User IP</th>
+       <th>Title</th>
+       <th>Text</th>
+       <th>Comments count</th>
+       <th>Rating</th>
+       <th>Show Action</th>
+       <th>Edit Action</th>
+       <th>Rating Action</th>
+       <th>Add Favorites</th>
+       <th>Delete</th>
+     </tr>
+    <% @articles.each do |article| %>
+      <tr data-article-id="<%=article.id%>">
+        <td><%= article.id %></td>
+        <td><%= article.user.email %></td>
+        <td><%= article.creator_ip_address %></td>
+        <td><%= article.title %></td>
+        <td><%= article.text %></td>
+        <td><%= article.count_of_comments %></td>
+        <td><%= article.rating %></td>
 
-<table class="striped table-bordered">
-  <tr>
-    <th>IP</th>
-    <th>User email</th>
-  </tr>
-    <% @list_ip.each do |ip, articles| %>
+        <td><%= link_to 'Show', article_path(article), class: "btn btn-success" %></td>
+
+        <td>
+          <% if policy(article).edit? %>
+            <%= link_to 'Edit', edit_article_path(article), class: "btn btn-primary" %>
+          <% end %>
+        </td>
+
+        <td><%= link_to 'Rating', new_article_rating_path(article), class: "btn btn-info" %></td>
+
+        <td>
+          <button type="button" id="remove-star-from-<%= article.id %>" class="<%= article.has_favorite?(current_user) ? nil : 'hide' %> btn btn-default send-remove-star">
+            <span class="glyphicon glyphicon-star" aria-hidden="true"></span> Remove Star
+          </button>
+          <button type="button" id="add-star-to-<%= article.id %>" class="<%= article.has_favorite?(current_user) ? 'hide' : nil %> btn btn-default send-add-star" aria-label="Left Align">
+            <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span> Star
+          </button>
+        </td>
+
+        <td>
+          <% if policy(article).destroy? %>
+            <%= link_to 'Delete', 'javascript:void(0)', class: "btn btn-danger" %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+
+  </table>
+  <%= paginate @articles %>
+  <h1>
+    List of IP addresses from which several different authors have posted
+  </h1>
+
+  <table class="striped table-bordered">
     <tr>
-      <td>
-        <%= ip %>
-      </td>
-      <td>
-        <% articles.each do |article|   %>
-          <p>
-            <%= article.user.email %>
-          </p>
-        <% end %>
-      </td>
+      <th>IP</th>
+      <th>User email</th>
     </tr>
-  <% end %>
-</table>
+      <% @list_ip.each do |ip, articles| %>
+      <tr>
+        <td>
+          <%= ip %>
+        </td>
+        <td>
+          <% articles.each do |article|   %>
+            <p>
+              <%= article.user.email %>
+            </p>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+</div>

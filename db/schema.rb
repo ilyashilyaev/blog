@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 2018_08_23_112107) do
     t.integer "rating", default: 0, null: false
     t.text "text", null: false
     t.string "attachment"
+    t.integer "count_of_comments"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_articles_on_user_id"
@@ -38,10 +39,11 @@ ActiveRecord::Schema.define(version: 2018_08_23_112107) do
   end
 
   create_table "favorites", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.bigint "article_id"
     t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["article_id", "user_id"], name: "index_favorites_on_article_id_and_user_id", unique: true
     t.index ["article_id"], name: "index_favorites_on_article_id"
     t.index ["user_id"], name: "index_favorites_on_user_id"
   end

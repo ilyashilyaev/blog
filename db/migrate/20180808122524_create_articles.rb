@@ -7,6 +7,7 @@ class CreateArticles < ActiveRecord::Migration[5.0]
       t.integer :rating, null: false, default: 0
       t.text    :text, null: false
       t.string  :attachment
+      t.integer :count_of_comments
 
       t.timestamps
     end

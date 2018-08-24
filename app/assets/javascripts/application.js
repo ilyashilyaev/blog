@@ -14,7 +14,14 @@
 //= require rails-ujs
 //= require activestorage
 //= require turbolinks
-//= require_tree .
+//= require bootstrap-sprockets
+
+//= require ./core/core
+//= require_tree ./classes
+
+Turbolinks.start();
+Application.app = new Application.Core;
+Application.app.start();
 
 $(document).ready(() => {
     $('#articles-table').find('.destroy-article-btn').on('click', (event) => {
@@ -35,7 +42,6 @@ $(document).ready(() => {
         }
     });
 
-    button_favorites();
     let timeout;
     $('form.new_user').find('input#user_nickname').on('input paste', (event) => {
         clearTimeout(timeout);
@@ -51,53 +57,23 @@ $(document).ready(() => {
     });
 });
 
-    function button_favorites() {
-        $('.favorites').on('click', (event) => {
-            let parentTr = $(event.currentTarget).closest('tr');
-            let articleId = $(parentTr).data('articleId');
-            $.ajax({
-                method: 'POST',
-                url: `/articles/${articleId}/add_to_favorites`,
-                dataType: 'JSON',
-            }).then((responce) => {
-                console.log(responce);
-                // Turbolinks.visit(document.location)
-                document.location.reload()
-            })
-        });
+function checkNickname(nickname) {
+    $.ajax({
+        method: 'POST',
+        url: '/check_nickname',
+        dataType: 'JSON',
+        data: {nickname: nickname}
+    }).then((responce) => {
+        console.log(responce);
+        if (responce.is_exist) {
+            $('#error-nickname').removeClass('hidden');
+            $('#success-nickname').addClass('hidden');
 
-        $('.delete_favorites').on('click', (event) => {
-            let parentTr = $(event.currentTarget).closest('tr');
-            let articleId = $(parentTr).data('articleId');
-            $.ajax({
-                method: 'PUT',
-                url: `/articles/${articleId}/delete_to_favorites`,
-                dataType: 'JSON',
-            }).then((responce) => {
-                console.log(responce);
-                // Turbolinks.visit(document.location)
-                document.location.reload()
-            })
+        } else {
+            $('#error-nickname').addClass('hidden');
+            $('#success-nickname').removeClass('hidden');
+            $('input#user_nickname').removeClass('border-error');
+        }
     })
-    }
-
-            function checkNickname(nickname) {
-                $.ajax({
-                    method: 'POST',
-                    url: '/check_nickname',
-                    dataType: 'JSON',
-                    data: {nickname: nickname}
-                }).then((responce) => {
-                    console.log(responce);
-                    if (responce.is_exist) {
-                        $('#error-nickname').removeClass('hidden');
-                        $('#success-nickname').addClass('hidden');
-
-                    } else {
-                        $('#error-nickname').addClass('hidden');
-                        $('#success-nickname').removeClass('hidden');
-                        $('input#user_nickname').removeClass('border-error');
-                    }
-                })
-            }
+}
 
