@@ -1,12 +1,15 @@
 class Article < ApplicationRecord
 
   belongs_to :user
+  # belongs_to :category
 
   has_many :comments, dependent: :destroy
 
   has_many :ratings, as: :ratingable, dependent: :destroy         #прописываем отношение, полигамность, удаление рейтинга после удаления поста
 
   has_many :favorites, dependent: :destroy
+  has_many :reports, dependent: :destroy
+
 
   mount_uploader :attachment, AttachmentUploader
 

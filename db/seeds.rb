@@ -6,6 +6,15 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+3.times do |i|
+Category.create({
+
+    name: "LoL#{i}",
+    type_of: "1"
+
+  }
+)
+
 
 User.create(
     {

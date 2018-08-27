@@ -3,8 +3,11 @@ class CommentsController < ApplicationController
   def create
     @article = Article.find(params[:article_id])
     @comment = @article.comments.create(comment_params.merge!({user: current_user}))
-
-    respond_with @comment
+    if @repost.save
+    else
+      render 'reports/new'
+    end
+    # respond_with @comment
   end
 
   def destroy

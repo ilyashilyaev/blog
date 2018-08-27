@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_23_112107) do
+ActiveRecord::Schema.define(version: 2018_08_27_131928) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,10 +22,23 @@ ActiveRecord::Schema.define(version: 2018_08_23_112107) do
     t.integer "rating", default: 0, null: false
     t.text "text", null: false
     t.string "attachment"
-    t.integer "count_of_comments"
+    t.integer "count_of_comments", default: 0, null: false
+    t.integer "count_of_reports", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_articles_on_user_id"
+  end
+
+  create_table "categories", force: :cascade do |t|
+    t.bigint "article_id"
+    t.bigint "report_id"
+    t.integer "type_of", default: 0, null: false
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["article_id", "report_id"], name: "index_categories_on_article_id_and_report_id"
+    t.index ["article_id"], name: "index_categories_on_article_id"
+    t.index ["report_id"], name: "index_categories_on_report_id"
   end
 
   create_table "comments", force: :cascade do |t|
@@ -59,6 +72,19 @@ ActiveRecord::Schema.define(version: 2018_08_23_112107) do
     t.index ["user_id"], name: "index_ratings_on_user_id"
   end
 
+  create_table "reports", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "article_id", null: false
+    t.text "text", null: false
+    t.bigint "category_id", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["article_id"], name: "index_reports_on_article_id"
+    t.index ["category_id"], name: "index_reports_on_category_id"
+    t.index ["user_id", "article_id"], name: "index_reports_on_user_id_and_article_id", unique: true
+    t.index ["user_id"], name: "index_reports_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -75,6 +101,7 @@ ActiveRecord::Schema.define(version: 2018_08_23_112107) do
     t.string "first_name", null: false
     t.string "last_name", null: false
     t.boolean "is_admin", default: false, null: false
+    t.boolean "is_blocked", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
@@ -97,9 +124,13 @@ ActiveRecord::Schema.define(version: 2018_08_23_112107) do
   end
 
   add_foreign_key "articles", "users"
+  add_foreign_key "categories", "articles"
+  add_foreign_key "categories", "reports"
   add_foreign_key "comments", "articles"
   add_foreign_key "comments", "users"
   add_foreign_key "favorites", "articles"
   add_foreign_key "favorites", "users"
   add_foreign_key "ratings", "users"
+  add_foreign_key "reports", "articles"
+  add_foreign_key "reports", "users"
 end

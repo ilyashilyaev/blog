@@ -8,6 +8,7 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
   has_many :my_favorite_articles, through: :favorites, source: :article, foreign_key: :article_id
+  has_many :reports, dependent: :destroy
 
   mount_uploader :avatar, AttachmentUploader
 
@@ -18,5 +19,10 @@ class User < ApplicationRecord
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, presence: true, length: { maximum: 255 },
             format: { with: VALID_EMAIL_REGEX }
+
+  def active_for_authentication?
+    super && !self.is_blocked
+  end
+
 
 end

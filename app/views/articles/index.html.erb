@@ -33,11 +33,13 @@
        <th>User IP</th>
        <th>Title</th>
        <th>Text</th>
+       <th>Reports count</th>
        <th>Comments count</th>
        <th>Rating</th>
        <th>Show Action</th>
        <th>Edit Action</th>
        <th>Rating Action</th>
+       <th>Reports</th>
        <th>Add Favorites</th>
        <th>Delete</th>
      </tr>
@@ -48,6 +50,7 @@
         <td><%= article.creator_ip_address %></td>
         <td><%= article.title %></td>
         <td><%= article.text %></td>
+        <td><%= article.count_of_reports %></td>
         <td><%= article.count_of_comments %></td>
         <td><%= article.rating %></td>
 
@@ -60,6 +63,9 @@
         </td>
 
         <td><%= link_to 'Rating', new_article_rating_path(article), class: "btn btn-info" %></td>
+        <td>
+          <%= link_to 'Report', new_article_report_path(article), class: "btn btn-info" %>
+        </td>
 
         <td>
           <button type="button" id="remove-star-from-<%= article.id %>" class="<%= article.has_favorite?(current_user) ? nil : 'hide' %> btn btn-default send-remove-star">

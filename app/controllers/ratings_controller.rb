@@ -4,10 +4,6 @@ class RatingsController < ApplicationController
     @rating = Rating.new
     @article = Article.find(params[:article_id])
   end
-puts
-  puts
-  puts
-  puts
 
   def create
     @article = Article.find(params[:article_id])                              #http://localhost:3000/articles/1/ratings/new
@@ -21,7 +17,7 @@ puts
       @article.update_columns(rating: avg)
 
       redirect_to articles_path
-    else
+      else
       render 'new'
     end
   end

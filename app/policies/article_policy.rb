@@ -1,7 +1,7 @@
 class ArticlePolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
-      scope.all
+      scope.where("articles.count_of_reports < ?", 3 )
     end
   end
 
