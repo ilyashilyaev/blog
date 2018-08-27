@@ -14,7 +14,7 @@ Category.create({
 
   }
 )
-
+end
 
 User.create(
     {
