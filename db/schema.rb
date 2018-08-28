@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_27_131928) do
+ActiveRecord::Schema.define(version: 2018_08_28_132341) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,15 +30,10 @@ ActiveRecord::Schema.define(version: 2018_08_27_131928) do
   end
 
   create_table "categories", force: :cascade do |t|
-    t.bigint "article_id"
-    t.bigint "report_id"
     t.integer "type_of", default: 0, null: false
     t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["article_id", "report_id"], name: "index_categories_on_article_id_and_report_id"
-    t.index ["article_id"], name: "index_categories_on_article_id"
-    t.index ["report_id"], name: "index_categories_on_report_id"
   end
 
   create_table "comments", force: :cascade do |t|
@@ -51,6 +46,22 @@ ActiveRecord::Schema.define(version: 2018_08_27_131928) do
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
+  create_table "conversation_users", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "conversation_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["conversation_id"], name: "index_conversation_users_on_conversation_id"
+    t.index ["user_id", "conversation_id"], name: "index_conversation_users_on_user_id_and_conversation_id", unique: true
+    t.index ["user_id"], name: "index_conversation_users_on_user_id"
+  end
+
+  create_table "conversations", force: :cascade do |t|
+    t.string "subject", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "favorites", force: :cascade do |t|
     t.bigint "article_id"
     t.bigint "user_id"
@@ -59,6 +70,28 @@ ActiveRecord::Schema.define(version: 2018_08_27_131928) do
     t.index ["article_id", "user_id"], name: "index_favorites_on_article_id_and_user_id", unique: true
     t.index ["article_id"], name: "index_favorites_on_article_id"
     t.index ["user_id"], name: "index_favorites_on_user_id"
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.text "text", null: false
+    t.bigint "conversation_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["conversation_id"], name: "index_messages_on_conversation_id"
+    t.index ["user_id"], name: "index_messages_on_user_id"
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "message_id", null: false
+    t.bigint "conversation_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["conversation_id"], name: "index_notifications_on_conversation_id"
+    t.index ["message_id"], name: "index_notifications_on_message_id"
+    t.index ["user_id", "conversation_id", "message_id"], name: "index_notifications_on_user_and_conversation_and_massage", unique: true
+    t.index ["user_id"], name: "index_notifications_on_user_id"
   end
 
   create_table "ratings", force: :cascade do |t|
@@ -76,7 +109,7 @@ ActiveRecord::Schema.define(version: 2018_08_27_131928) do
     t.bigint "user_id", null: false
     t.bigint "article_id", null: false
     t.text "text", null: false
-    t.bigint "category_id", default: 0, null: false
+    t.bigint "category_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["article_id"], name: "index_reports_on_article_id"
@@ -124,13 +157,19 @@ ActiveRecord::Schema.define(version: 2018_08_27_131928) do
   end
 
   add_foreign_key "articles", "users"
-  add_foreign_key "categories", "articles"
-  add_foreign_key "categories", "reports"
   add_foreign_key "comments", "articles"
   add_foreign_key "comments", "users"
+  add_foreign_key "conversation_users", "conversations"
+  add_foreign_key "conversation_users", "users"
   add_foreign_key "favorites", "articles"
   add_foreign_key "favorites", "users"
+  add_foreign_key "messages", "conversations"
+  add_foreign_key "messages", "users"
+  add_foreign_key "notifications", "conversations"
+  add_foreign_key "notifications", "messages"
+  add_foreign_key "notifications", "users"
   add_foreign_key "ratings", "users"
   add_foreign_key "reports", "articles"
+  add_foreign_key "reports", "categories"
   add_foreign_key "reports", "users"
 end

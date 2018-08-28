@@ -16,6 +16,8 @@
 //= require turbolinks
 //= require bootstrap-sprockets
 
+//= require bootstrap-dialog/src/js/bootstrap-dialog
+
 //= require ./core/core
 //= require_tree ./classes
 
@@ -23,38 +25,9 @@ Turbolinks.start();
 Application.app = new Application.Core;
 Application.app.start();
 
-$(document).ready(() => {
-    $('#articles-table').find('.destroy-article-btn').on('click', (event) => {
-        let parentTr = $(event.currentTarget).closest('tr');
-        let articleId = parentTr.data('articleId');
-        if(confirm('Are you sure?')){
-            $.ajax({
-                method: 'DELETE',
-                // url: '/articles/' + articleId,
-                url: `/articles/${articleId}`,
-                dataType: 'JSON'
-            }).then((responce) => {
-                console.log(responce);
-                parentTr.remove();
-            }).catch((responce) => {
-                alert( responce.statusText );
-            })
-        }
-    });
 
-    let timeout;
-    $('form.new_user').find('input#user_nickname').on('input paste', (event) => {
-        clearTimeout(timeout);
-        timeout = setTimeout(() => {
-            if ($(event.currentTarget).val().length !== 0){
-                checkNickname($(event.currentTarget).val())
-            } else {
-                $('#error-nickname').addClass('hidden');
-                $('#success-nickname').addClass('hidden');
-                $(event.currentTarget).addClass('border-error');
-            }
-        }, 1500);
-    });
+$(document).ready(() => {
+
 });
 
 function checkNickname(nickname) {
@@ -76,4 +49,6 @@ function checkNickname(nickname) {
         }
     })
 }
+
+
 

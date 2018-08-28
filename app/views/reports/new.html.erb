@@ -31,16 +31,23 @@
     <%= form.label :text %><br>
     <%= form.text_area :text %>
   </p>
+  <p><em>Select category</em>
+
+    <%= form.collection_select :category_id, Category.all, :id, :name %>
+<!--  <select>-->
+    <%# Category.all.each do |category| %>
+<!--      <option value="<%#= category.id %>"><%#= category.name %></option>-->
+    <%# end %>
+<!--  </select>-->
+  </p>
   <p>
     <%= form.submit %>
   </p>
-  <option value="category">
-  <%= form.select(:category, @article.category.key, {}) %>
-  </option>
+
 <% end %>
 
 
 
 <%#= render partial: 'form', locals: {report: @report, url: article_reports_path(@report)} %>
 
-<%= link_to 'Back', articles_path %>
+<%#= link_to 'Back', articles_path %>

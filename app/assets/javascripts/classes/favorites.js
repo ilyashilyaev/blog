@@ -3,10 +3,13 @@ Application.Classes.Favorites = class Favorites {
     constructor($el) {
         this.$addFavoritesBtn    = $el.find('.send-add-star');
         this.$deleteFavoritesBtn = $el.find('.send-remove-star');
-        this.$removeFavoritesBtn = $el.find('.btn-danger');
+        this.$removeFavoritesBtn = $el.find('.remove-favorite');
+        this.$removeArticleBtn   = $el.find('.destroy-article-btn');
+
 
         this._button_favorites();
         this._button_delete_favorites();
+        this._destroy_article();
     }
 
     // создаем функцию добавления в избранное.
@@ -55,4 +58,25 @@ Application.Classes.Favorites = class Favorites {
             }
         });
     }
+
+    _destroy_article() {
+        this.$removeArticleBtn.on('click', (event) => {
+            let parentTr = $(event.currentTarget).closest('tr');
+            let articleId = parentTr.data('articleId');
+            if(confirm('Are you sure?')){
+                $.ajax({
+                    method: 'DELETE',
+                    // url: '/articles/' + articleId,
+                    url: `/articles/${articleId}`,
+                    dataType: 'JSON'
+                }).then((responce) => {
+                    console.log(responce);
+                    parentTr.remove();
+                }).catch((responce) => {
+                    alert( responce.statusText );
+                })
+            }
+        });
+    }
+
 }

@@ -1,5 +1,12 @@
 {
   "name": "blog",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "bootstrap-dialog": "^1.34.6"
+  },
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:ilyashilyaev/blog.git",
+  "author": "Ilya SH <ilyash.on5lab@gmail.com>",
+  "license": "MIT"
 }

@@ -3,6 +3,7 @@ class ReportsController < ApplicationController
   def new
     @report = Report.new
     @article = Article.find(params[:article_id])
+    render layout: false
   end
 
   def create
@@ -31,6 +32,6 @@ class ReportsController < ApplicationController
 
   private
   def report_params
-    params.require(:report).permit(:text)
+    params.require(:report).permit(:text, :category_id)
   end
 end

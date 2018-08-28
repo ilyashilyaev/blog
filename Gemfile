@@ -57,6 +57,8 @@ group :development do
 
   gem 'awesome_print'                                            # Pretty print your Ruby objects with style -- in full color and with proper indentation.
 
+  gem 'annotate'                                                 #Add a comment summarizing the current schema to the top or bottom of each of your…
+
 end
 
 group :test do

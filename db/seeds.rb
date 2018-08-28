@@ -9,8 +9,8 @@
 3.times do |i|
 Category.create({
 
-    name: "LoL#{i}",
-    type_of: "1"
+    type_of:  Category.type_ofs[:report],
+    name:     "LoL#{i}"
 
   }
 )
@@ -41,11 +41,11 @@ end
 
 300.times do |i|
   Article.create({
-     title:                                       "First Article#{i}",
-     creator_ip_address:                          "127.0.0.#{rand(0..9)}",
-     text:                                        "RailsAdmin Rollincode Theme. Gem Version.
-                                                   A modern override of default bootstrap 3 rails_admin theme.
-                                                   It provides news colors, adjustments and a brand",
-     user:                                         User.order("RANDOM()").last
+     title:                    "First Article#{i}",
+     creator_ip_address:       "127.0.0.#{rand(0..9)}",
+     text:                     "RailsAdmin Rollincode Theme. Gem Version.
+                                A modern override of default bootstrap 3 rails_admin theme.
+                                It provides news colors, adjustments and a brand",
+     user:                      User.order("RANDOM()").last
   })
 end

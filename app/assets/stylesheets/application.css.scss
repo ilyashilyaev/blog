@@ -15,6 +15,7 @@
  */
 @import "bootstrap-sprockets";
 @import "bootstrap";
+@import "bootstrap-dialog/src/css/bootstrap-dialog";
  input[type=submit] {@extend .btn; @extend .btn-success}
 
 .error-massage{

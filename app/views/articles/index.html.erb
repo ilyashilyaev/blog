@@ -17,8 +17,8 @@
     <h1>Listing articles</h1>
   </div>
 
-  <%= link_to 'New article', new_article_path %><br>
-  <%= link_to 'My favorites', my_favorites_user_path(current_user)  %>
+  <%= link_to 'New article', new_article_path, class: "btn btn-info" %><br>
+  <%= link_to 'My favorites', my_favorites_user_path(current_user), data: {'lazy-modal': true}, class: "btn btn-info"%>
 
   <%= form_tag(articles_path, method: "get") do %>
     <%= label_tag(:q, "Search article by title:") %>
@@ -58,13 +58,15 @@
 
         <td>
           <% if policy(article).edit? %>
-            <%= link_to 'Edit', edit_article_path(article), class: "btn btn-primary" %>
+            <%= link_to 'Edit', edit_article_path(article), data: {'lazy-modal': true}, class: "btn btn-primary" %>
           <% end %>
         </td>
 
-        <td><%= link_to 'Rating', new_article_rating_path(article), class: "btn btn-info" %></td>
+        <td><%= link_to 'Rating', new_article_rating_path(article), data: {'lazy-modal': true}, class: "btn btn-info" %></td>
         <td>
-          <%= link_to 'Report', new_article_report_path(article), class: "btn btn-info" %>
+          <% unless article.has_report?(current_user) %>
+            <%= link_to 'Report', new_article_report_path(article), data: {'lazy-modal': true}, class: "btn btn-primary" %>
+          <%end %>
         </td>
 
         <td>
@@ -78,7 +80,7 @@
 
         <td>
           <% if policy(article).destroy? %>
-            <%= link_to 'Delete', 'javascript:void(0)', class: "btn btn-danger" %>
+            <%= link_to 'Delete', 'javascript:void(0)', class: "btn btn-danger destroy-article-btn" %>
           <% end %>
         </td>
       </tr>
