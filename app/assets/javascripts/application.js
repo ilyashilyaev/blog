@@ -21,7 +21,7 @@
 
 $(document).ready(function() {
     $("#articles-table").find('.destroy-article-btn').on('click', function (event) {
-         let parentTr = $(event.currentTarget).closest('tr');
+        let parentTr = $(event.currentTarget).closest('tr');
         let articleId = parentTr.data('articleId');
         if(confirm('Are you sure?')){
             $.ajax({
