@@ -1,0 +1,27 @@
+<%#= form_with model: report, url: url, local: true do |form| %>
+
+<%# if report.errors.any? %>
+<!--    <div id="error_explanation">-->
+<!--      <h2>-->
+<!--        <%#= pluralize(report.errors.count, "error") %> prohibited-->
+<!--        this article from being saved:-->
+<!--      </h2>-->
+<!--      <ul>-->
+<%# report.errors.full_messages.each do |msg| %>
+<!--          <li><%#= msg %></li>-->
+<%# end %>
+<!--      </ul>-->
+<!--    </div>-->
+<%# end %>
+
+<!--  <p>-->
+<!--    <%#= form.label :mark %><br>-->
+<%#= form.number_field :mark %>
+<!--  </p>-->
+
+
+<!--  <p>-->
+<%#= form.submit %>
+<!--  </p>-->
+
+<%# end %>

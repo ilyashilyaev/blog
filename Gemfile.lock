@@ -45,6 +45,9 @@ GEM
     acts_as_votable (0.11.1)
     addressable (2.5.2)
       public_suffix (>= 2.0.2, < 4.0)
+    annotate (2.7.4)
+      activerecord (>= 3.2, < 6.0)
+      rake (>= 10.4, < 13.0)
     archive-zip (0.11.0)
       io-like (~> 0.3.0)
     arel (9.0.0)
@@ -76,6 +79,7 @@ GEM
     chromedriver-helper (1.2.0)
       archive-zip (~> 0.10)
       nokogiri (~> 1.8)
+    cocoon (1.2.11)
     coffee-rails (4.2.2)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0)
@@ -227,6 +231,9 @@ GEM
     selenium-webdriver (3.14.0)
       childprocess (~> 0.5)
       rubyzip (~> 1.2)
+    simple_form (4.0.1)
+      actionpack (>= 5.0)
+      activemodel (>= 5.0)
     spring (2.0.2)
       activesupport (>= 4.2)
     spring-watcher-listen (2.0.1)
@@ -268,6 +275,7 @@ PLATFORMS
 
 DEPENDENCIES
   acts_as_votable
+  annotate
   awesome_print
   bootsnap (>= 1.1.0)
   bootstrap-sass
@@ -275,6 +283,7 @@ DEPENDENCIES
   capybara (>= 2.15, < 4.0)
   carrierwave
   chromedriver-helper
+  cocoon
   coffee-rails (~> 4.2)
   devise
   file_validators
@@ -290,6 +299,7 @@ DEPENDENCIES
   rails_admin
   sass-rails (~> 5.0)
   selenium-webdriver
+  simple_form
   spring
   spring-watcher-listen (~> 2.0.0)
   turbolinks (~> 5)

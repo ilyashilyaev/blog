@@ -35,10 +35,12 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.2]
 
 
       # Customs
+      t.string  :avatar
       t.string  :nickname,            null: false
       t.string  :first_name,          null: false
       t.string  :last_name,           null: false
       t.boolean :is_admin,            null: false, default: false
+      t.boolean :is_blocked,          null: false, default: false
 
 
       t.timestamps null: false

@@ -14,18 +14,12 @@ class ArticlesController < ApplicationController
 
     @list_ip = policy_scope(Article).group_by(&:creator_ip_address)
 
-    puts '======='
-    puts '======='
-    puts @list_ip.inspect
-    puts '======='
-    puts '======='
-    puts '======='
-
   end
 
   def show
     @article = Article.find(params[:id])
     authorize @article
+
   end
 
   def new
@@ -61,6 +55,28 @@ class ArticlesController < ApplicationController
   def destroy
     authorize @article
     @article.destroy
+    respond_with do |format|
+      format.json { render json: @article }
+    end
+  end
+
+  def add_to_favorites
+    @article = Article.find(params[:id])
+    @favorite = @article.favorites.new({user: current_user})
+    if @favorite.save
+      respond_with do |format|
+        format.json { render json: @article }
+      end
+    else
+      render json: "false"
+
+    end
+  end
+
+  def delete_to_favorites
+    @article = Article.find(params[:id])
+    @favorite = @article.favorites.find_by(user: current_user)
+    @favorite.destroy
     respond_with do |format|
       format.json { render json: @article }
     end

@@ -1,0 +1,53 @@
+
+<h1>New Report</h1>
+
+<p>
+  <strong>Author:</strong>
+  <%= @article.user.nickname %>
+</p>
+<p>
+  <strong>Article:</strong>
+  <%= @article.text %>
+</p>
+
+<%= form_with(model: [ @article, @article.reports.build ],data:{remote: true }, local: true, id: 'reports-form') do |form| %>
+
+  <% if @report.errors.any? %>
+    <div id ="error_explanation">
+
+      <h2>
+        <%= pluralize(@report.errors.count, "error") %> prohibited
+        this report from being saved:
+      </h2>
+      <ul>
+        <% @report.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+
+  <% end %>
+  <p>
+    <%= form.label :text %><br>
+    <%= form.text_area :text %>
+  </p>
+  <p><em>Select category</em>
+
+    <%= form.collection_select :category_id, Category.all, :id, :name %>
+<!--  <select>-->
+    <%# Category.all.each do |category| %>
+<!--      <option value="<%#= category.id %>"><%#= category.name %></option>-->
+    <%# end %>
+<!--  </select>-->
+  </p>
+  <p>
+    <%= form.submit %>
+  </p>
+
+<% end %>
+
+
+
+<%#= render partial: 'form', locals: {report: @report, url: article_reports_path(@report)} %>
+
+<%#= link_to 'Back', articles_path %>

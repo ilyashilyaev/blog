@@ -1,6 +1,5 @@
 class CreateRatings < ActiveRecord::Migration[5.2]
 
-  #creat migrate
 
   def change
     create_table :ratings do |t|
