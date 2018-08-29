@@ -13,8 +13,8 @@ class User < ApplicationRecord
   has_many :my_favorite_articles, through: :favorites, source: :article, foreign_key: :article_id
   has_many :reports,    dependent: :destroy
 
-  has_many :conversation_users, dependent: :destroy
-  has_many :conversations,      through: :conversation_users
+  has_many :conversations_users, dependent: :destroy
+  has_many :conversations,      through: :conversations_users
   has_many :notifications,      dependent: :destroy
   has_many :messages,           dependent: :destroy
 
@@ -35,6 +35,12 @@ class User < ApplicationRecord
 
   def active_for_authentication?
     super && !self.is_blocked
+  end
+
+  def full_name
+
+    [first_name, last_name].join(' ')
+
   end
 
 

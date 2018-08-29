@@ -14,5 +14,9 @@
 <h4>User email</h4>
   <%= @user.email %>
 
-<%= link_to 'My favorites', my_favorites_user_path(current_user)  %>
-<%= link_to 'Back', articles_path %>
+<br>
+
+<%= link_to 'My favorites', my_favorites_user_path(current_user), class: "btn btn-info" %><br>
+<%= link_to 'Back', articles_path, class: "btn btn-info" %><br>
+<%= link_to 'Users search', users_path, class: "btn btn-info" %><br>
+<%= link_to 'Chat new', new_conversation_path(recipient_id: @user.id), data: {'lazy-modal': true}, class: "btn btn-info" %>

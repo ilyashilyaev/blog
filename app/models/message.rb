@@ -2,11 +2,12 @@ class Message < ApplicationRecord
 
   belongs_to :conversation,   required: true
   belongs_to :user,           required: true
+
   has_many   :notifications,  dependent: :destroy
 
   validates :text,
             presence: true,
-            length: { maximum: 10_000 }
+            length: { maximum: 2_000 }
 
 end
 

@@ -1,0 +1,6 @@
+<%= simple_form_for(@conversation, method: :post, url: conversations_path) do |f| %>
+  <%= f.input :recipient_id, as: :hidden, input_html: {value: params[:recipient_id]} %>
+  <%= f.input :subject %>
+  <%= f.input :message, as: :text %>
+  <%= f.submit 'Save' %>
+<% end %>

@@ -20,6 +20,12 @@ Rails.application.routes.draw do
     get 'my_favorites', on: :member
 
   end
+
+  resources :conversations do
+
+
+  end
+
   root 'welcome#index'
   post 'check_nickname', to: 'welcome#check_nickname'
 

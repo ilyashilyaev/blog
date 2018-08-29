@@ -4,6 +4,8 @@ class Notification < ApplicationRecord
   belongs_to :message,      required: true
   belongs_to :conversation, required: true
 
+  validates :message, uniqueness: {scope: [:conversation, :user]}
+
 end
 
 # == Schema Information

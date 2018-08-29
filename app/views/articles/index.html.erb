@@ -5,9 +5,10 @@
         <%end %></span><br>
     <span>Здравствуйте, <%= current_user.email %></span><br>
     <span><%= current_user.nickname %></span>
-    <%= link_to 'Show', user_path(current_user) %>
-    <%= link_to 'Edit', edit_user_path(current_user) %>
-    <%= link_to 'Выйти', destroy_user_session_path, method: :delete %>
+    <%= link_to 'Show', user_path(current_user),class: "btn btn-info" %>
+    <%= link_to 'Edit', edit_user_path(current_user), class: "btn btn-info" %>
+    <%= link_to 'User search', users_path, class: "btn btn-info" %>
+    <%= link_to 'Выйти', destroy_user_session_path, method: :delete, class: "btn btn-info" %>
   <% else %>
     <%= link_to 'Войти', new_user_session_path %> или <%= link_to 'Зарегистрироваться', new_user_registration_path %>
   <% end %>
@@ -25,6 +26,12 @@
     <%= text_field_tag(:q, params[:q]) %>
     <%= submit_tag("Search") %>
   <% end %>
+
+  <%#= form_tag(users_path, method: "get") do %>
+    <%#= label_tag(:w, "Search user by nickname:") %>
+    <%#= text_field_tag(:w, params[:w]) %>
+    <%#= submit_tag("Search") %>
+  <%# end %>
 
   <table class="table" id="articles-table">
      <tr>

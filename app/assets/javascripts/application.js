@@ -15,6 +15,7 @@
 //= require activestorage
 //= require turbolinks
 //= require bootstrap-sprockets
+//= require cocoon
 
 //= require bootstrap-dialog/src/js/bootstrap-dialog
 

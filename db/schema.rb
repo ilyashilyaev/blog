@@ -46,20 +46,20 @@ ActiveRecord::Schema.define(version: 2018_08_28_132341) do
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
-  create_table "conversation_users", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "conversation_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["conversation_id"], name: "index_conversation_users_on_conversation_id"
-    t.index ["user_id", "conversation_id"], name: "index_conversation_users_on_user_id_and_conversation_id", unique: true
-    t.index ["user_id"], name: "index_conversation_users_on_user_id"
-  end
-
   create_table "conversations", force: :cascade do |t|
     t.string "subject", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "conversations_users", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "conversation_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["conversation_id"], name: "index_conversations_users_on_conversation_id"
+    t.index ["user_id", "conversation_id"], name: "index_conversations_users_on_user_id_and_conversation_id", unique: true
+    t.index ["user_id"], name: "index_conversations_users_on_user_id"
   end
 
   create_table "favorites", force: :cascade do |t|
@@ -159,8 +159,8 @@ ActiveRecord::Schema.define(version: 2018_08_28_132341) do
   add_foreign_key "articles", "users"
   add_foreign_key "comments", "articles"
   add_foreign_key "comments", "users"
-  add_foreign_key "conversation_users", "conversations"
-  add_foreign_key "conversation_users", "users"
+  add_foreign_key "conversations_users", "conversations"
+  add_foreign_key "conversations_users", "users"
   add_foreign_key "favorites", "articles"
   add_foreign_key "favorites", "users"
   add_foreign_key "messages", "conversations"
