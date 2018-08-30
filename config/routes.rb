@@ -22,9 +22,10 @@ Rails.application.routes.draw do
   end
 
   resources :conversations do
-
-
+    resources :messages
   end
+
+
 
   root 'welcome#index'
   post 'check_nickname', to: 'welcome#check_nickname'
