@@ -1,8 +1,8 @@
 class ConversationsController < ApplicationController
 
-  # def index
-  #   @conversations = Conversation.all
-  # end
+  def index
+    @conversations = current_user.conversations
+  end
 
   def new
     @conversation = Conversation.new
@@ -21,9 +21,7 @@ class ConversationsController < ApplicationController
       render 'new'
     end
 
-    def show
-      @conversation = Conversation.find(params[:id])
-    end
+
 
 
     # respond_to do |format|
@@ -35,6 +33,14 @@ class ConversationsController < ApplicationController
     #     format.json { render json: @chat.errors, status: :unprocessable_entity }
     #   end
     # end
+  end
+
+  def show
+
+    @conversation = Conversation.find(params[:id])
+    # @conversations = Conversation.all
+    # @conversations = Conversation.joins(:conversations_users).where(conversations_users: {user: current_user} )
+
   end
 
   private

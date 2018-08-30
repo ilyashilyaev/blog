@@ -1,0 +1,22 @@
+
+<div class="container" data-controller="Messages" data-conversation-id="<%= @conversation.id %>" data-user-id="<%= current_user.id %>">
+  <h3 class=" text-center">Messaging</h3>
+  <div class="messaging">
+    <div class="inbox_msg">
+      <div class="col-sm-6 col-sm-offset-3" id="messages">
+        <%- @messages.each do |message| %>
+          <div class="row <%= message.user == current_user ? 'text-right' : 'text-left' %>">
+              <p><%=message.text %></p>
+              <hr>
+          </div>
+        <%end %>
+        </div>
+      </div>
+        <div class="type_msg">
+          <div class="input_msg_write">
+          <input type="text" class="write_msg" placeholder="Type a message" />
+        <button class="msg_send_btn" type="button"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
+        </div>
+    </div>
+  </div>
+</div>

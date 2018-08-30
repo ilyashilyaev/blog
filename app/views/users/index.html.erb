@@ -9,16 +9,18 @@
     <th>User email</th>
     <th>User nickname</th>
     <th>User name</th>
-    <th></th>
+    <th>          </th>
   </tr>
   <% @users.each do |user| %>
-    <tr data-article-id="<%=user.id%>">
+  <tr data-article-id="<%=user.id%>">
       <td><%= user.id %></td>
       <td><%= user.email %></td>
       <td><%= user.nickname %></td>
       <td><%= user.full_name %></td>
       <td><%= link_to 'Chat new', new_conversation_path(recipient_id: user.id), data: {'lazy-modal': true}, class: "btn btn-info" %></td>
   <%end %>
+  </tr>
+
 </table>
   <%= paginate @users %><br>
 <%= link_to 'Back to article', articles_path %><br>
