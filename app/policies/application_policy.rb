@@ -35,11 +35,21 @@ class ApplicationPolicy
   end
 
   class Scope
-    attr_reader :user, :scope
+    attr_reader :user, :scope, :parent
 
-    def initialize(user, scope)
+    def initialize(user, scope, parent = nil)
       @user = user
       @scope = scope
+      @parent = parent
+      puts '########'
+      puts '########'
+      puts @user.inspect
+      puts '########'
+      puts '########'
+      puts @scope.inspect
+      puts '########'
+      puts @parent.inspect
+      puts '########'
     end
 
     def resolve

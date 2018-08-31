@@ -21,26 +21,20 @@ class ConversationsController < ApplicationController
       render 'new'
     end
 
-
-
-
-    # respond_to do |format|
-    #   if @chat.save
-    #     format.html { redirect_to @chat, notice: 'Message was successfully posted.' }
-    #     format.json { render :show, status: :created, location: @chat }
-    #   else
-    #     format.html { render :new }
-    #     format.json { render json: @chat.errors, status: :unprocessable_entity }
-    #   end
-    # end
   end
 
   def show
-
     @conversation = Conversation.find(params[:id])
     # @conversations = Conversation.all
     # @conversations = Conversation.joins(:conversations_users).where(conversations_users: {user: current_user} )
+  end
 
+  def destroy
+    @conversation = Conversation.find(params[:id])
+    @conversation.destroy
+    respond_with do |format|
+      format.json { render json: @conversation }
+      end
   end
 
   private

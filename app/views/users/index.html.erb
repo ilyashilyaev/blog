@@ -12,14 +12,21 @@
     <th>          </th>
   </tr>
   <% @users.each do |user| %>
-  <tr data-article-id="<%=user.id%>">
-      <td><%= user.id %></td>
-      <td><%= user.email %></td>
-      <td><%= user.nickname %></td>
-      <td><%= user.full_name %></td>
-      <td><%= link_to 'Chat new', new_conversation_path(recipient_id: user.id), data: {'lazy-modal': true}, class: "btn btn-info" %></td>
-  <%end %>
-  </tr>
+    <tr data-article-id="<%=user.id%>">
+        <td><%= user.id %></td>
+        <td><%= user.email %></td>
+        <td><%= user.nickname %></td>
+        <td><%= user.full_name %></td>
+
+      <%- chat = current_user.chat_with_user(user) %>
+      <% if chat.present? %>
+        <td><%= link_to 'Chat', conversation_messages_path(chat), class: "btn btn-info" %></td>
+      <% else  %>
+        <td><%= link_to 'Chat new', new_conversation_path(recipient_id: user.id), data: {'lazy-modal': true}, class: "btn btn-info" %></td>
+      <%end %>
+
+    </tr>
+  <% end %>
 
 </table>
   <%= paginate @users %><br>

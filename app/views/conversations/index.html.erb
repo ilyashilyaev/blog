@@ -1,8 +1,20 @@
+<div data-controller="Conversations">
 <h1>Chats</h1>
-<ul class="list-group">
+<table class="table" id="conversation-table" >
+  <tr>
+    <th>ID</th>
+    <th>subject</th>
+    <th>Show Action</th>
+    <th>Delete</th>
+  </tr>
   <% @conversations.each do |conversation| %>
-  <li class="list-group-item"><%= conversation.id %></li>
-  <li class="list-group-item"><%= conversation.subject%></li>
-  <li class="list-group-item"><%= link_to 'show', conversation_messages_path(conversation), class: "btn btn-success" %></li>
-  <%end %>
-</ul>
+    <tr data-conversation-id="<%=conversation.id%>">
+      <td><%= conversation.id %></td>
+      <td><%= conversation.subject %></td>
+      <td><%= link_to 'show', conversation_messages_path(conversation), class: "btn btn-success"%></td>
+      <td><%= link_to 'delete', 'javascript:void(0)', class: "btn btn-danger destroy-conversation-btn" %></td>
+    </tr>
+    <%end %>
+</table>
+  <%= link_to 'Back', root_path %>
+</div>

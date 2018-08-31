@@ -38,11 +38,15 @@ class User < ApplicationRecord
   end
 
   def full_name
-
     [first_name, last_name].join(' ')
-
   end
 
+  def chat_with_user(user)
+    user_ids = [self.id, user.id]
+    conversations.joins(:conversations_users)
+                 .group('conversations.id')
+                 .having('array_agg(conversations_users.user_id ORDER BY conversations_users.user_id)::bigint[] = ARRAY[?]::bigint[]', user_ids.sort).last
+  end
 
 end
 
