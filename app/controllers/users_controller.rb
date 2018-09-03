@@ -33,7 +33,7 @@ class UsersController < ApplicationController
 
   def my_favorites
     @my_favorite_articles = current_user.my_favorite_articles
-
+    render layout: false
   end
 
 

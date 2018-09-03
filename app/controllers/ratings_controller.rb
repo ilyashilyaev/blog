@@ -3,6 +3,7 @@ class RatingsController < ApplicationController
   def new
     @rating = Rating.new
     @article = Article.find(params[:article_id])
+    render layout: false
   end
 
   def create

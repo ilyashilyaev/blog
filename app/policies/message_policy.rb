@@ -13,4 +13,8 @@ class MessagePolicy < ApplicationPolicy
     record.user == user
   end
 
+  def update?
+    edit?
+  end
+
 end

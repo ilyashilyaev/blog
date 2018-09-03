@@ -8,10 +8,13 @@ Application.Classes.Messages = class Messages {
         this.userId = $el.data('userId');
         this.messageBlog = $el.find('#messages');
         this.$deleteMessage = $el.find('.destroy-msg-btn');
+        // this.$editMessage = $el.find('.edit-msg-btn');
+        // this.$responceMessage = $el.find()
 
 
         this._button_send_message();
         this._button_delete_message();
+        // this._button_edit_message();
 
 
     }
@@ -27,7 +30,7 @@ Application.Classes.Messages = class Messages {
                 console.log(responce);
                 let messageClass = responce.user_id == this.userId ? 'text-right' : 'text-left';
                 this.messageBlog.append(`<div class="row ${messageClass}"` +
-                    `<p>${responce.text}</p><hr><button type="button" class="btn btn-danger btn-xs 
+                    `<p>${responce.text}</p><hr><button type="button" class="btn btn-danger btn-xs
                                                         destroy-msg-btn">delete</button></div>`);
                 this.$inputMessage.val('')
             });
@@ -55,4 +58,26 @@ Application.Classes.Messages = class Messages {
         });
 
     }
+
+    // _button_edit_message(){
+    //     this.$editMessage.on('click',(event)=>{
+    //         let parentDiv =$(event.currentTarget).closest('.message');
+    //         $.ajax({
+    //             method: 'PUT',
+    //             // url: '/articles/' + articleId,
+    //             url: `/conversations/${this.conversationId}/messages/${parentDiv.data('msgId')}`,
+    //             dataType: 'JSON'
+    //         }).then((responce) => {
+    //             console.log(responce);
+    //
+    //             $(`[data-msg-${responce.message.id}]`).find('p').html(responce.message.text)
+    //                 // messageClass = responce.user_id == this.userId ? 'text-right' : 'text-left';
+    //             // this.messageBlog.before(`<div class="row ${messageClass}"` +
+    //             //     `<p>${responce.text}</p><hr><button type="button" class="btn btn-danger btn-xs
+    //             //                                     destroy-msg-btn">delete</button></div>`);
+    //             // this.$inputMessage.val('')
+    //         });
+    //     });
+    //
+    // }
 }

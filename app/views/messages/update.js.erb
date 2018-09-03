@@ -1,0 +1,6 @@
+<% if @message.errors.present? %>
+  $('#edit_message_<%= @message.id %>').replaceWith("<%= j( render(partial: 'messages/form' ) ) %>");
+<% else %>
+  $('[data-msg-id=<%= @message.id %>]').find('p').html('<%= @message.text %>')
+  BootstrapDialog.closeAll()
+<% end %>

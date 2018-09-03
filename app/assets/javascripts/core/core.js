@@ -32,20 +32,20 @@ Application.Core = class Core {
 
     initializeLazyModals($parent) {
         if ($parent == null) { $parent = $('body'); }
-        return $parent.find('[data-lazy-modal]').each((k, el) => {
+        $parent.find('[data-lazy-modal]').each((k, el) => {
             const $el = $(el);
-            return $el.off('click').on('click', event => {
+            $el.off('click').on('click', event => {
                 window.lazyModal = BootstrapDialog.show({
-                    type: BootstrapDialog.TYPE_DEFAULT,
-                    title: $el.data('lazy-modal-title'),
-                    cssClass: $el.data('lazy-modal-css-class'),
+                    type:      BootstrapDialog.TYPE_DEFAULT,
+                    title:     $el.data('lazy-modal-title'),
+                    cssClass:  $el.data('lazy-modal-css-class'),
                     draggable: true,
                     onshown: dialog => {
                         dialog.$modal.removeAttr('tabindex');
                         const $dialog = dialog.getModalBody();
-                        return $dialog.load($(event.currentTarget).attr('href'), () => {
+                        $dialog.load($(event.currentTarget).attr('href'), () => {
                             // this.initializeAllPlugins($dialog);
-                            return this.bindClasses($dialog);
+                            this.bindClasses($dialog);
                         });
                     }
                 });

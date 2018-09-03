@@ -1,1 +1,13 @@
 
+
+<%= simple_form_for [@message.conversation, @message], remote: true do |form| %>   <!-- #создаем симпл форму и задае путь в масиве-->
+
+  <p>
+    <%= form.input :text %><br>
+  </p>
+
+  <p>
+    <%= form.submit %>
+  </p>
+
+<%end %>

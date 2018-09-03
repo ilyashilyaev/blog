@@ -23,7 +23,7 @@ Rails.application.routes.draw do
 
   resources :conversations do
     resources :messages
-    get 'edit_msg'
+    get 'edit_message'
   end
 
 

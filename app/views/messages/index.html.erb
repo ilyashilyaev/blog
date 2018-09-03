@@ -11,7 +11,7 @@
             <button type="button" class="btn btn-danger btn-xs destroy-msg-btn">delete</button>
               <%end %>
             <% if policy(message).edit? %>
-              <%= link_to 'edit', edit_conversation_message_path(@conversation), data: {'lazy-modal': true}, class: "btn btn-primary"%>
+              <%= link_to 'edit', edit_conversation_message_path(message.conversation, message), data: {'lazy-modal': true}, class: "btn btn-info btn-xs edit-msg-btn"%>
             <% end %>
             <hr>
           </div>

@@ -18,7 +18,20 @@ class MessagesController < ApplicationController
   end
 
   def edit
+    @conversation = Conversation.find(params[:conversation_id])
+    @message      = Message.find(params[:id])
+    render layout: false
+  end
+
+  def update
+
     @message = Message.find(params[:id])
+    if @message.update(message_params)
+      # render json: @message
+      respond_with @message
+    else
+      respond_with @message
+    end
 
   end
 
