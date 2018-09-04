@@ -17,6 +17,7 @@ Application.Classes.Messages = class Messages {
         // this._button_edit_message();
 
 
+
     }
 
     _button_send_message() {
@@ -55,6 +56,24 @@ Application.Classes.Messages = class Messages {
                     alert(responce.statusText);
                 });
             }
+        });
+
+        // scroll on down block after refresh
+
+        $(function(){
+            // $(".msg_send_btn").click(function(){
+                $('.ScrollStyle').animate({
+                    scrollTop: $('.ScrollStyle')[0].scrollHeight});
+            });
+
+
+        // scroll on down block at message input
+
+        $(function(){
+            $(".msg_send_btn").click(function(){
+                $('.ScrollStyle').animate({
+                    scrollTop: $('.ScrollStyle')[0].scrollHeight}, "slow");
+            });
         });
 
     }

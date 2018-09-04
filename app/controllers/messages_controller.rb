@@ -3,7 +3,11 @@ class MessagesController < ApplicationController
 
   def index
     @conversation = Conversation.find(params[:conversation_id])
-    @messages =  @conversation.messages
+    # @message =  @conversation.messages
+
+    @messages = @conversation.messages.order(id: :desc).page(params[:page])
+    # Conversation.message.paginate(:page => params[:page], :per_page =>10)
+
   end
 
   def create
