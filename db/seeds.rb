@@ -6,15 +6,15 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-3.times do |i|
-Category.create({
-
-    type_of:  Category.type_ofs[:report],
-    name:     "LoL#{i}"
-
-  }
-)
-end
+# 3.times do |i|
+# Category.create({
+#
+#     type_of:  Category.type_ofs[:report],
+#     name:     "LoL#{i}"
+#
+#   }
+# )
+# end
 
 User.create(
     {

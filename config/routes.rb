@@ -29,6 +29,7 @@ Rails.application.routes.draw do
 
   root 'welcome#index'
   post 'check_nickname', to: 'welcome#check_nickname'
+  get 'game', to: 'welcome#game'
 
 end
 

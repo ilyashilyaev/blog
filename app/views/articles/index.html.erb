@@ -2,10 +2,10 @@
   <% if user_signed_in? %>
     <span><% if current_user.avatar.present? %>
         <%= image_tag(current_user.avatar.thumb.url) %>
-        <%end %></span><br>
+        <% end %></span><br>
     <span>Здравствуйте, <%= current_user.email %></span><br>
     <span><%= current_user.nickname %></span>
-    <%= link_to 'Show', user_path(current_user),class: "btn btn-info" %>
+    <%= link_to 'Show', user_path(current_user), class: "btn btn-info" %>
     <%= link_to 'Edit', edit_user_path(current_user), class: "btn btn-info" %>
     <%= link_to 'User search', users_path, class: "btn btn-info" %>
     <%= link_to 'Conversation', conversations_path, class: "btn btn-info" %>
@@ -13,6 +13,7 @@
   <% else %>
     <%= link_to 'Войти', new_user_session_path %> или <%= link_to 'Зарегистрироваться', new_user_registration_path %>
   <% end %>
+  <%= link_to 'game', game_path, class: "btn btn-info" %>
   <p class="notice"><%= notice %></p>
   <p class="alert"><%= alert %></p>
   <div class="jumbotron text-center">
@@ -20,32 +21,33 @@
   </div>
 
   <%= link_to 'New article', new_article_path, class: "btn btn-info" %><br>
-  <%= link_to 'My favorites', my_favorites_user_path(current_user), data: {'lazy-modal': true}, class: "btn btn-info"%>
+  <%= link_to 'My favorites', my_favorites_user_path(current_user), data: {'lazy-modal': true}, class: "btn btn-info" %>
 
   <%= form_tag(articles_path, method: "get") do %>
     <%= label_tag(:q, "Search article by title:") %>
     <%= text_field_tag(:q, params[:q]) %>
     <%= submit_tag("Search") %>
   <% end %>
+
   <table class="table" id="articles-table">
-     <tr>
-       <th>ID</th>
-       <th>User email</th>
-       <th>User IP</th>
-       <th>Title</th>
-       <th>Text</th>
-       <th>Reports count</th>
-       <th>Comments count</th>
-       <th>Rating</th>
-       <th>Show Action</th>
-       <th>Edit Action</th>
-       <th>Rating Action</th>
-       <th>Reports</th>
-       <th>Add Favorites</th>
-       <th>Delete</th>
-     </tr>
+    <tr>
+      <th>ID</th>
+      <th>User email</th>
+      <th>User IP</th>
+      <th>Title</th>
+      <th>Text</th>
+      <th>Reports count</th>
+      <th>Comments count</th>
+      <th>Rating</th>
+      <th>Show Action</th>
+      <th>Edit Action</th>
+      <th>Rating Action</th>
+      <th>Reports</th>
+      <th>Add Favorites</th>
+      <th>Delete</th>
+    </tr>
     <% @articles.each do |article| %>
-      <tr data-article-id="<%=article.id%>">
+      <tr data-article-id="<%= article.id %>">
         <td><%= article.id %></td>
         <td><%= article.user.email %></td>
         <td><%= article.creator_ip_address %></td>
@@ -67,7 +69,7 @@
         <td>
           <% unless article.has_report?(current_user) %>
             <%= link_to 'Report', new_article_report_path(article), data: {'lazy-modal': true}, class: "btn btn-primary" %>
-          <%end %>
+          <% end %>
         </td>
 
         <td>
@@ -98,13 +100,13 @@
       <th>IP</th>
       <th>User email</th>
     </tr>
-      <% @list_ip.each do |ip, articles| %>
+    <% @list_ip.each do |ip, articles| %>
       <tr>
         <td>
           <%= ip %>
         </td>
         <td>
-          <% articles.each do |article|   %>
+          <% articles.each do |article| %>
             <p>
               <%= article.user.email %>
             </p>

@@ -27,7 +27,6 @@ Turbolinks.start();
 Application.app = new Application.Core;
 Application.app.start();
 
-
 $(document).ready(() => {
 
 });

@@ -13,11 +13,13 @@
  *= require_tree .
  *= require_self
  */
+@import 'sweetalert2/src/sweetalert2.scss';
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import "bootstrap-dialog/src/css/bootstrap-dialog";
  input[type=submit] {@extend .btn; @extend .btn-success}
 @import "messages";
+
 .error-massage{
   color: red;
 }

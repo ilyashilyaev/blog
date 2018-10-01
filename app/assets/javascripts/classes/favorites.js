@@ -1,3 +1,4 @@
+
 Application.Classes.Favorites = class Favorites {
 
     constructor($el) {
@@ -5,7 +6,6 @@ Application.Classes.Favorites = class Favorites {
         this.$deleteFavoritesBtn = $el.find('.send-remove-star');
         this.$removeFavoritesBtn = $el.find('.remove-favorite');
         this.$removeArticleBtn   = $el.find('.destroy-article-btn');
-
 
         this._button_favorites();
         this._button_delete_favorites();
@@ -78,5 +78,6 @@ Application.Classes.Favorites = class Favorites {
             }
         });
     }
+
 
 }
