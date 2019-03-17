@@ -1,0 +1,9 @@
+default: &default
+
+  development: &dev
+    <<: *default
+
+      #GOOGLE
+      GOOGLE_CLIENT_ID:            "252484299039-0eshdgs2pc4jicvpl28pf3hrhe8na4er.apps.googleusercontent.com"
+      GOOGLE_CLIENT_SECRET:        "EtdNFhiR9Ttpg3xPrd8_eta_"
+

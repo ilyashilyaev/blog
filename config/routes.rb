@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
-  
+
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   post '/rate' => 'rater#create', as: 'rate'
-  devise_for :users
+  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
   #get 'persons/profile'
   #get 'persons/profile', as: 'users_root'
   resources   :articles do

@@ -46,6 +46,8 @@ gem "cocoon"                                                  #Cocoon makes it e
 
 gem 'file_validators'                                         #File Validators gem adds file size and content type validations to ActiveModel. Any module that uses ActiveModel, for example ActiveRecord, can use these file validators.
 
+gem 'omniauth-google-oauth2'                                  #Google auth
+
 group :development, :test do
 
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]         # Call 'byebug' anywhere in the code to stop execution and get a debugger console
