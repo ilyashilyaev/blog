@@ -48,6 +48,8 @@ gem 'file_validators'                                         #File Validators g
 
 gem 'omniauth-google-oauth2'                                  #Google auth
 
+gem "figaro"                                                  #Simple, Heroku-friendly Rails app configuration using ENV and a single YAML file
+
 group :development, :test do
 
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]         # Call 'byebug' anywhere in the code to stop execution and get a debugger console
